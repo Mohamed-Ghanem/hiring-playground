@@ -58,6 +58,7 @@ const pwaConfig = {
   dest: 'public',  // Where the service worker and other PWA files will be generated
   register: true,
   skipWaiting: true,
+  reloadOnOnline: false
 };
 
 const plugins = [

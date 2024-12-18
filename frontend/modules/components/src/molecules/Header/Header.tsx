@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Popover, Spin } from 'antd';
 import { ShoppingCartOutlined } from '@ant-design/icons';
+import { useNetworkState } from 'react-use';
 
 import { getCart } from 'modules/services/products';
 import { appName } from 'modules/services';
@@ -13,7 +14,12 @@ import styles from './Header.module.scss';
 const Header: React.FC<HeaderProps> = ({}) => {
   const [cartServerItems, setCartServerItems] = useState<CartProps[]>([]);
   const [loadingCart, setLoadingCart] = useState<boolean>(false);
-  // const networkState = useNetworkInformation();
+  const networkState = useNetworkState();
+  const [networkIsOnline, setNetworkIsOnline] = useState(false);
+
+  useEffect(() => {
+    setNetworkIsOnline(networkState.online || false);
+  }, [networkState.online]);
 
   const onDropdownClicked = async () => {
     setLoadingCart(true);
@@ -43,7 +49,10 @@ const Header: React.FC<HeaderProps> = ({}) => {
         <span> Hello there, </span>
         Welcome to {appName()} 👋
       </h1>
-      {/* Network connection: {networkState.isOnline ? 'connected': 'not connected'} */}
+      <div>
+        {networkIsOnline ? <p>You are online!</p> : <p>You are offline!</p>}
+      </div>
+
       <Popover
         content={content}
         title={null}

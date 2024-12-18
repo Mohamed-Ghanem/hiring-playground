@@ -45,3 +45,11 @@
 .addToCartButton:hover {
   background-color: #b12704;
 }
+
+.addToCartButton:disabled {
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+  opacity: 0.6;
+  cursor: not-allowed;
+}
